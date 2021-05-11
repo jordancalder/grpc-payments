@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package payments;
+
+service Transaction {
+  rpc setDayStatus(DayStatus) returns (Empty);
+  rpc createTransactionsStream(stream TransactionItem) returns (TransactionSummary);
+  rpc getTransactionsStream(Empty) returns (stream TransactionItem);
+}
+
+message Empty {}
+
+message DayStatus {
+  bool receiving = 1;
+}
+
+message TransactionItem {
+  int32 id = 1;
+  string name = 2;
+  int32 price = 3;
+}
+
+message TransactionSummary {
+  int32 totalItems = 1;
+  int32 totalRevenue = 2;
+}
